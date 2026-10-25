@@ -1,4 +1,3 @@
-import tensorflow as tf
 import tensorflow_hub as hub
 import tf_keras as keras
 
@@ -10,8 +9,11 @@ GOOGLENET_URL = (
 )
 
 
-def build_model(num_classes: int = NUM_CLASSES):
-   
+def build_model(
+    num_classes: int = NUM_CLASSES,
+    learning_rate: float = 0.001,
+    dropout_rate: float = 0.3,
+):
     backbone = hub.KerasLayer(
         GOOGLENET_URL,
         trainable=False,
@@ -23,10 +25,9 @@ def build_model(num_classes: int = NUM_CLASSES):
         name="mri_image",
     )
 
-
     features = backbone(inputs)
 
-    x = keras.layers.Dropout(0.3)(features)
+    x = keras.layers.Dropout(dropout_rate)(features)
 
     outputs = keras.layers.Dense(
         num_classes,
@@ -41,23 +42,11 @@ def build_model(num_classes: int = NUM_CLASSES):
     )
 
     model.compile(
-        optimizer=keras.optimizers.Adam(learning_rate=1e-3),
+        optimizer=keras.optimizers.Adam(
+            learning_rate=learning_rate
+        ),
         loss="sparse_categorical_crossentropy",
         metrics=["accuracy"],
     )
 
     return model
-
-
-if __name__ == "__main__":
-    model = build_model()
-    model.summary()
-
-    print("\nOutput shape:", model.output_shape)
-    print(
-        "Trainable parameters:",
-        sum(
-            keras.backend.count_params(w)
-            for w in model.trainable_weights
-        ),
-    )
