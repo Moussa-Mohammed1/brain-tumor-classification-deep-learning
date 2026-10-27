@@ -1,0 +1,16 @@
+model:
+  name: "brainscan_googlenet"
+  image_size: [224, 224]
+  num_classes: 4
+  dropout_rate: 0.3
+  pretrained: true
+  freeze_backbone: true
+training:
+  batch_size: 32
+  epochs: 20
+  learning_rate: 0.001
+  optimizer: "adam"
+  loss: "sparse_categorical_crossentropy"
+  metrics: 
+    - "accuracy"
+  seed: 42
