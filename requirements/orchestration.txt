@@ -1,0 +1,12 @@
+# Apache Airflow - Python 3.10.22
+#
+# Install in a DEDICATED environment/container: Airflow pins older
+# Flask/SQLAlchemy/Connexion versions that conflict with TensorFlow/Streamlit.
+#
+# Always install Airflow with its official constraints file:
+#
+#   python3.10 -m pip install -r requirements/orchestration.txt \
+#       --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-3.10.txt"
+#
+# Airflow 2.10.x supports Python 3.8 - 3.12 (cp310 compatible).
+apache-airflow==2.10.5

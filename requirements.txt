@@ -1,0 +1,61 @@
+# =============================================================================
+# Brain Tumor Classification & Detection - requirements for Python 3.10.22
+# =============================================================================
+# Every pin below has a cp310 / abi3 / pure-Python wheel on PyPI, so it installs
+# on the remote Python 3.10.22 interpreter.
+#
+#   python3.10 -m pip install --upgrade pip
+#   python3.10 -m pip install -r requirements.txt
+#
+# Notes:
+#  * Apache Airflow is deliberately NOT in this file: it pins old
+#    Flask/SQLAlchemy/Connexion versions that clash with the ML stack.
+#    Install it separately from requirements/orchestration.txt.
+#  * The previous requirements/classification.txt was a `pip freeze` taken on
+#    Python 3.12 and contains packages that do NOT install on 3.10
+#    (numpy 2.5.4, pandas 3.0.6, scipy 1.18.1, scikit-learn 1.9.1,
+#    matplotlib 3.11.2, pillow 13.0.0 all require Python >= 3.11/3.12).
+#    This file replaces it for the remote.
+# =============================================================================
+
+# --- Data / scientific stack ------------------------------------------------
+numpy==2.2.6              # newest NumPy that supports Python 3.10
+pandas==2.3.3             # pandas 3.x requires Python >= 3.11
+scipy==1.15.3             # scipy 1.16+ requires Python >= 3.11
+scikit-learn==1.6.1       # scikit-learn 1.7+ requires Python >= 3.11
+PyYAML==6.0.2
+Pillow==11.0.0            # Pillow 12+ requires Python >= 3.11
+matplotlib==3.10.0        # matplotlib 3.11+ requires Python >= 3.11
+seaborn==0.13.2
+opencv-python==4.11.0.86  # abi3 wheels, NumPy 2 compatible
+kagglehub==0.3.4          # used by scripts/data.py to fetch the Kaggle dataset
+
+# --- Classification: TensorFlow / Keras / InceptionV3 (GoogLeNet family) ----
+tensorflow==2.21.0        # last TF line whose protobuf pin is >=6.31 (3.10 OK)
+keras==3.12.0             # Keras 3.13+ requires Python >= 3.11
+tf-keras==2.21.0          # standalone Keras 2: the code does `import tf_keras`
+tensorflow-hub==0.16.1    # TF Hub module loader (InceptionV3 feature vector)
+
+# --- Detection: YOLOv8 ------------------------------------------------------
+ultralytics==8.3.40
+torch==2.5.1              # CPU/GPU wheel for cp310
+torchvision==0.20.1       # must match torch 2.5.1
+# For a CPU-only remote, install torch/torchvision from the CPU index instead:
+#   pip install torch==2.5.1 torchvision==0.20.1 \
+#       --index-url https://download.pytorch.org/whl/cpu
+
+# --- Experiment tracking ----------------------------------------------------
+mlflow==2.19.0
+
+# --- REST API (FastAPI) -----------------------------------------------------
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20  # required for file uploads
+pydantic==2.10.4
+
+# --- Streamlit UI -----------------------------------------------------------
+streamlit==1.50.0         # protobuf<7, still valid together with TF 2.21
+requests==2.32.3
+
+# --- Tests ------------------------------------------------------------------
+pytest==8.3.4

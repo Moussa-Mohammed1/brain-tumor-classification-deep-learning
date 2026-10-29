@@ -1,0 +1,21 @@
+# FastAPI inference service - Python 3.10.22
+numpy==2.2.6
+Pillow==11.0.0
+opencv-python==4.11.0.86
+
+# classification model
+tensorflow==2.21.0
+keras==3.12.0
+tf-keras==2.21.0
+tensorflow-hub==0.16.1
+
+# detection model
+ultralytics==8.3.40
+torch==2.5.1
+torchvision==0.20.1
+
+# web server
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20
+pydantic==2.10.4
