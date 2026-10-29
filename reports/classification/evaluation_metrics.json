@@ -1,0 +1,149 @@
+{
+    "Train": {
+        "loss": 0.14578178524971008,
+        "accuracy": 0.9531845450401306,
+        "precision_macro": 0.9575213561594055,
+        "recall_macro": 0.9555190199764458,
+        "f1_macro": 0.9563339968355241,
+        "precision_weighted": 0.9532355536499691,
+        "recall_weighted": 0.9531845400108874,
+        "f1_weighted": 0.9530034250421104,
+        "classification_report": {
+            "Glioma": {
+                "precision": 0.9598623853211009,
+                "recall": 0.9279379157427938,
+                "f1-score": 0.943630214205186,
+                "support": 902.0
+            },
+            "Meningioma": {
+                "precision": 0.9344262295081968,
+                "recall": 0.9226618705035972,
+                "f1-score": 0.9285067873303168,
+                "support": 1112.0
+            },
+            "No Tumor": {
+                "precision": 0.9858407079646018,
+                "recall": 0.9806338028169014,
+                "f1-score": 0.9832303618711385,
+                "support": 568.0
+            },
+            "Pituitary": {
+                "precision": 0.9499561018437226,
+                "recall": 0.9908424908424909,
+                "f1-score": 0.9699686239354549,
+                "support": 1092.0
+            },
+            "accuracy": 0.9531845400108874,
+            "macro avg": {
+                "precision": 0.9575213561594055,
+                "recall": 0.9555190199764458,
+                "f1-score": 0.9563339968355241,
+                "support": 3674.0
+            },
+            "weighted avg": {
+                "precision": 0.9532355536499691,
+                "recall": 0.9531845400108874,
+                "f1-score": 0.9530034250421104,
+                "support": 3674.0
+            }
+        }
+    },
+    "Validation": {
+        "loss": 0.26186537742614746,
+        "accuracy": 0.9072427153587341,
+        "precision_macro": 0.91265728775927,
+        "recall_macro": 0.9071201689255961,
+        "f1_macro": 0.9090101838052658,
+        "precision_weighted": 0.9085652330181226,
+        "recall_weighted": 0.9072426937738246,
+        "f1_weighted": 0.9069977168733601,
+        "classification_report": {
+            "Glioma": {
+                "precision": 0.9479768786127167,
+                "recall": 0.8497409326424871,
+                "f1-score": 0.8961748633879781,
+                "support": 193.0
+            },
+            "Meningioma": {
+                "precision": 0.8495934959349594,
+                "recall": 0.8781512605042017,
+                "f1-score": 0.8636363636363636,
+                "support": 238.0
+            },
+            "No Tumor": {
+                "precision": 0.9262295081967213,
+                "recall": 0.9262295081967213,
+                "f1-score": 0.9262295081967213,
+                "support": 122.0
+            },
+            "Pituitary": {
+                "precision": 0.926829268292683,
+                "recall": 0.9743589743589743,
+                "f1-score": 0.95,
+                "support": 234.0
+            },
+            "accuracy": 0.9072426937738246,
+            "macro avg": {
+                "precision": 0.91265728775927,
+                "recall": 0.9071201689255961,
+                "f1-score": 0.9090101838052658,
+                "support": 787.0
+            },
+            "weighted avg": {
+                "precision": 0.9085652330181226,
+                "recall": 0.9072426937738246,
+                "f1-score": 0.9069977168733601,
+                "support": 787.0
+            }
+        }
+    },
+    "Test": {
+        "loss": 0.27313825488090515,
+        "accuracy": 0.9111675024032593,
+        "precision_macro": 0.9128385424290485,
+        "recall_macro": 0.917827685451787,
+        "f1_macro": 0.9146963657390321,
+        "precision_weighted": 0.9102389147355938,
+        "recall_weighted": 0.9111675126903553,
+        "f1_weighted": 0.9100426858825894,
+        "classification_report": {
+            "Glioma": {
+                "precision": 0.9139784946236559,
+                "recall": 0.8762886597938144,
+                "f1-score": 0.8947368421052632,
+                "support": 194.0
+            },
+            "Meningioma": {
+                "precision": 0.8805309734513275,
+                "recall": 0.8326359832635983,
+                "f1-score": 0.8559139784946237,
+                "support": 239.0
+            },
+            "No Tumor": {
+                "precision": 0.9291338582677166,
+                "recall": 0.9752066115702479,
+                "f1-score": 0.9516129032258065,
+                "support": 121.0
+            },
+            "Pituitary": {
+                "precision": 0.927710843373494,
+                "recall": 0.9871794871794872,
+                "f1-score": 0.9565217391304348,
+                "support": 234.0
+            },
+            "accuracy": 0.9111675126903553,
+            "macro avg": {
+                "precision": 0.9128385424290485,
+                "recall": 0.917827685451787,
+                "f1-score": 0.9146963657390321,
+                "support": 788.0
+            },
+            "weighted avg": {
+                "precision": 0.9102389147355938,
+                "recall": 0.9111675126903553,
+                "f1-score": 0.9100426858825894,
+                "support": 788.0
+            }
+        }
+    }
+}
