@@ -52,7 +52,7 @@ def evaluate_split(model, split_name, class_names):
         "accuracy": float(accuracy),
         "precision_macro": float(report["macro avg"]["precision"]),
         "recall_macro": float(report["macro avg"]["recall"]),
-        "f1_macro": float(report["macro avg"]["f1_score"]),
+        "f1_macro": float(report["macro avg"]["f1-score"]),
         "precision_weighted": float(
             report["weighted avg"]["precision"]
         ),
@@ -60,7 +60,7 @@ def evaluate_split(model, split_name, class_names):
             report["weighted avg"]["recall"]
         ),
         "f1_weighted": float(
-            report["weighted avg"]["f1_score"]
+            report["weighted avg"]["f1-score"]
         ),
         "classification_report": report,
     }
@@ -111,7 +111,7 @@ def main():
     matrix = confusion_matrix(
         y_true,
         y_pred,
-        labels=list(range(class_names)),
+        labels=list(range(len(class_names))),
     )
 
     display = ConfusionMatrixDisplay(
