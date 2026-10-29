@@ -1,16 +1,25 @@
 model:
-  name: "brainscan_googlenet"
+  name: "brainscan_inception_v3"
   image_size: [299, 299]
   num_classes: 4
   dropout_rate: 0.3
   pretrained: true
-  freeze_backbone: true
+
 training:
   batch_size: 32
   epochs: 20
   learning_rate: 0.001
   optimizer: "adam"
   loss: "sparse_categorical_crossentropy"
-  metrics: 
+  metrics:
     - "accuracy"
   seed: 42
+
+finetuning:
+  enabled: true
+  epochs: 20
+  learning_rate: 0.00001
+  phase1_patience: 5
+  phase1_reduce_lr_patience: 2
+  early_stopping_patience: 3
+  reduce_lr_patience: 2

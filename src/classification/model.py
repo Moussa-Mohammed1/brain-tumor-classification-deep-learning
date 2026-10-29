@@ -8,16 +8,24 @@ INCEPTION_V3_URL = (
     "https://tfhub.dev/google/imagenet/inception_v3/feature_vector/5"
 )
 
+BACKBONE_NAME = "inception_v3_feature_extractor"
+
 
 def build_model(
     num_classes: int = NUM_CLASSES,
     learning_rate: float = 0.001,
     dropout_rate: float = 0.3,
+    trainable: bool = False,
 ):
+    """Build InceptionV3 + classification head.
+
+    ``trainable=False`` builds a frozen backbone (feature extraction),
+    which is the starting point of the two-phase training pipeline.
+    """
     backbone = hub.KerasLayer(
         INCEPTION_V3_URL,
-        trainable=False,
-        name="inception_v3_feature_extractor",
+        trainable=trainable,
+        name=BACKBONE_NAME,
     )
 
     inputs = keras.Input(
@@ -50,3 +58,14 @@ def build_model(
     )
 
     return model
+
+
+def set_backbone_trainable(model, trainable: bool = True) -> None:
+    """Enable or disable fine-tuning of the InceptionV3 backbone.
+
+    TensorFlow Hub's ``KerasLayer`` is a single opaque layer, so the whole
+    module is toggled at once (sub-layer freezing is not exposed by the API).
+    Call ``model.compile(...)`` afterwards, normally with a much smaller
+    learning rate than the feature-extraction phase.
+    """
+    model.get_layer(BACKBONE_NAME).trainable = trainable
