@@ -1,11 +1,11 @@
 import tensorflow_hub as hub
 import tf_keras as keras
 
-IMAGE_SIZE = (224, 224)
+IMAGE_SIZE = (299, 299)
 NUM_CLASSES = 4
 
-GOOGLENET_URL = (
-    "https://tfhub.dev/google/imagenet/inception_v1/feature_vector/5"
+INCEPTION_V3_URL = (
+    "https://tfhub.dev/google/imagenet/inception_v3/feature_vector/5"
 )
 
 
@@ -15,9 +15,9 @@ def build_model(
     dropout_rate: float = 0.3,
 ):
     backbone = hub.KerasLayer(
-        GOOGLENET_URL,
+        INCEPTION_V3_URL,
         trainable=False,
-        name="googlenet_feature_extractor",
+        name="inception_v3_feature_extractor",
     )
 
     inputs = keras.Input(
@@ -38,7 +38,7 @@ def build_model(
     model = keras.Model(
         inputs=inputs,
         outputs=outputs,
-        name="BrainScan_GoogLeNet",
+        name="BrainScan_InceptionV3",
     )
 
     model.compile(

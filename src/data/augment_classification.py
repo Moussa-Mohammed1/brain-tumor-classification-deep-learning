@@ -32,6 +32,7 @@ def apply_augmentation(image, technique):
         return np.clip(noisy_image, 0, 255).astype(np.uint8)
 
     if technique == "flip":
+        
         return cv2.flip(image, 1)
 
     raise ValueError(f"Technique inconnue : {technique}")
@@ -74,7 +75,7 @@ def augment_dataset():
   
     target_count = max(len(images) for images in classes.values())
 
-    print("Nombre initial d'i# Retournement horizontalmages :")
+    print("Nombre initial d'images :")
     for name, images in classes.items():
         print(f"  {name}: {len(images)}")
 

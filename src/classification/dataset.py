@@ -3,7 +3,7 @@ from pathlib import Path
 import tensorflow as tf 
 from tensorflow import keras
 
-IMAGE_SIZE = (224, 224)
+IMAGE_SIZE = (299, 299)
 BATCH_SIZE = 32
 SEED = 42
 

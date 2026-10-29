@@ -1,6 +1,6 @@
 model:
   name: "brainscan_googlenet"
-  image_size: [224, 224]
+  image_size: [299, 299]
   num_classes: 4
   dropout_rate: 0.3
   pretrained: true

@@ -1,0 +1,75 @@
+Diagnostic des tumeurs cérébrales par IA : classification, détection et déploiement de modèles DL
+Assigné
+fr
+
+NA
+Nafia Akdi
+créé : 17/10/26
+Ce projet consiste à développer une solution d’intelligence artificielle dédiée à l’analyse d’images cérébrales, combinant la classification des tumeurs avec TensorFlow/Keras et leur détection et localisation avec YOLOv8. Il intègre également MLflow pour le suivi des expériences, Apache Airflow pour l’orchestration du pipeline, FastAPI pour exposer les modèles via des API REST et Streamlit pour proposer une interface interactive de prédiction.
+Référentiels
+[2023] Certification RNCP Développeur.se en intelligence artificielle
+Compétences transversales
+Ressources
+https://www.kaggle.com/datasets/ahmedsorour1/mri-for-brain-tumor-with-bounding-boxes?select=Train
+Contexte du projet
+Vous êtes développeur IA junior au sein d’un laboratoire biomédical spécialisé en imagerie médicale. Le laboratoire souhaite développer une solution d’analyse automatisée d’images cérébrales afin d’assister les spécialistes dans l’identification et la localisation des tumeurs cérébrales.
+
+Votre mission consiste à concevoir une solution unifiée basée sur le Deep Learning, intégrant deux approches complémentaires :
+
+La classification d’images cérébrales à l’aide d’un modèle pré-entraîné basé sur GoogLeNet et TensorFlow/Keras.
+La détection et la localisation des tumeurs cérébrales à l’aide de YOLOv8.
+Vous devrez également mettre en place un système de suivi des expériences, automatiser les étapes du pipeline et exposer les modèles à travers des API REST, consommées par une interface Streamlit.
+
+Classification des tumeurs cérébrales avec TensorFlow/Keras
+Importer les bibliothèques nécessaires.
+Charger les images du dataset et vérifier leurs extensions (jpeg, jpg, bmp, png). Écarter les fichiers qui ne correspondent pas aux formats autorisés.
+Utiliser un bloc try-except pour gérer les erreurs lors du chargement des images.
+Explorer les classes du dataset à partir des noms des dossiers.
+Représenter le nombre d’échantillons de chaque classe à l’aide d’un countplot.
+Afficher un échantillon d’images pour chaque classe.
+Diviser les images en trois ensembles : Train, Validation et Test, selon la répartition suivante : 70 % pour l’entraînement, 15 % pour la validation et 15 % pour le test.
+Compter les images présentes dans chaque ensemble.
+Appliquer des techniques d’augmentation des données, telles que le flou (blur), l’ajout de bruit (noise) et le retournement (flip), uniquement sur les données d’entraînement, afin d’enrichir les échantillons et de réduire les déséquilibres entre les classes.
+Utiliser les fonctions de prétraitement de TensorFlow/Keras pour redimensionner les images, les convertir au format adapté au modèle et normaliser les valeurs des pixels.
+Utiliser tf.keras.utils.imagedatasetfrom_directory() pour charger les images par lots (batches) et activer le mélange aléatoire (shuffle=True) pour l’ensemble d’entraînement.
+Utiliser une implémentation compatible de GoogLeNet pré-entraîné et adapter sa partie de classification (fully connected layer) à la tâche demandée.
+Déterminer les hyperparamètres d’entraînement, notamment le taux d’apprentissage (learning rate), la fonction de perte (loss function) et l’optimiseur (optimizer).
+Entraîner le modèle en utilisant l’ensemble d’entraînement et suivre ses performances sur l’ensemble de validation.
+Évaluer le modèle à l’aide de métriques adaptées, notamment l’accuracy, la précision (precision), le rappel (recall) et le F1-score.
+Analyser les résultats à l’aide d’une matrice de confusion et comparer les performances sur les ensembles d’entraînement et de test.
+Sauvegarder le modèle entraîné.
+Détection des tumeurs cérébrales avec YOLOv8
+Afficher un échantillon d’images avec leurs boîtes englobantes (bounding boxes) et les classes correspondantes.
+Vérifier, pour chaque image, l’existence d’un fichier .txt correspondant dans le répertoire des annotations, en comparant les noms de base des fichiers.
+Organiser les données dans les dossiers images et labels, en respectant les ensembles train, valid et test.
+Copier chaque image accompagnée de son fichier d’annotation correspondant vers l’ensemble approprié.
+Écarter les images sans annotation correspondante et les fichiers d’annotation sans image associée.
+Vérifier la validité du format des annotations YOLO et la cohérence des classes.
+Compter les images et les fichiers d’annotation présents dans chaque ensemble.
+Créer un fichier data.yaml contenant les chemins des ensembles d’entraînement, de validation et de test, le nombre de classes et leurs noms.
+Définir les paramètres d’augmentation des données dans la configuration d’entraînement de YOLOv8.
+Entraîner le modèle YOLOv8 en choisissant des hyperparamètres adaptés au dataset et aux ressources disponibles.
+Évaluer les performances à l’aide des métriques adaptées à la détection d’objets, notamment la précision, le rappel, la mAP@0.5 et la mAP@0.5:0.95.
+Analyser les résultats et vérifier la capacité de généralisation du modèle sur l’ensemble de test.
+Sauvegarder le modèle entraîné et les artefacts nécessaires à son utilisation.
+Suivi des expériences avec MLflow
+Configurer une expérience MLflow pour suivre les entraînements.
+Enregistrer les hyperparamètres utilisés, les métriques obtenues et les artefacts pertinents.
+Comparer plusieurs expériences afin d’identifier la configuration la plus performante.
+Enregistrer le modèle retenu et conserver les informations nécessaires à son identification et à sa réutilisation.
+Automatisation du pipeline avec Apache Airflow
+Créer un DAG Airflow représentant le pipeline de traitement des données et d’entraînement.
+Organiser les tâches dans un ordre logique :
+Vérification et préparation des datasets.
+Validation de la structure et de la qualité des données.
+Entraînement du modèle de classification.
+Entraînement du modèle de détection.
+Évaluation des modèles et enregistrement des résultats dans MLflow.
+Sauvegarde des modèles et des artefacts produits.
+Configurer la gestion des erreurs, les journaux d’exécution (logs) et le suivi des statuts des tâches.
+Interface utilisateur avec Streamlit
+Développer une interface Streamlit permettant de téléverser une image cérébrale.
+Proposer deux fonctionnalités distinctes : Classification de l’image cérébrale, Détection et localisation des tumeurs cérébrales.
+Connecter Streamlit aux endpoints FastAPI à l’aide de requêtes HTTP.
+Afficher la classe prédite, les scores de confiance et les résultats de classification.
+Afficher l’image avec les boîtes englobantes et les informations de détection retournées par YOLOv8.

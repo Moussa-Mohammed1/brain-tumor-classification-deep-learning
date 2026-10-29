@@ -28,11 +28,10 @@ def main():
 
     keras.utils.set_random_seed(training.get("seed", 42))
 
-    # Load the datasets
+ 
     train_ds = load_dataset("Train", shuffle=True)
     val_ds = load_dataset("Validation", shuffle=False)
-
-    # Build the model using the configured hyperparameters
+ 
     model = build_model(
         num_classes=model_config["num_classes"],
         learning_rate=training["learning_rate"],
