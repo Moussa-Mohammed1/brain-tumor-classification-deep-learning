@@ -42,3 +42,15 @@ training:
     mosaic: 1.0
     mixup: 0.1
     copy_paste: 0.0
+
+evaluation:
+  splits: ["val", "test"]
+  imgsz: 640
+  batch: 16
+  conf: 0.001
+  iou: 0.6
+  device: null
+  plots: true
+  save_predictions: 8
+  predict_conf: 0.25
+  save_samples: 8
