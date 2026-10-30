@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Trained model artifacts
+models/**/*.keras
+models/**/*.h5
+models/**/*.weights
