@@ -1,0 +1,28 @@
+model: yolov8n.pt
+data: /workspace/BrainScan/data/detection/data.yaml
+project: /workspace/BrainScan/models/detection
+name: yolov8n_brain_tumor
+training:
+  epochs: 50
+  imgsz: 640
+  batch: 16
+  workers: 4
+  patience: 15
+  optimizer: auto
+  lr0: 0.01
+  lrf: 0.01
+  seed: 42
+  augmentation:
+    hsv_h: 0.015
+    hsv_s: 0.7
+    hsv_v: 0.4
+    degrees: 10.0
+    translate: 0.1
+    scale: 0.5
+    shear: 2.0
+    perspective: 0.0
+    flipud: 0.0
+    fliplr: 0.5
+    mosaic: 1.0
+    mixup: 0.1
+    copy_paste: 0.0
