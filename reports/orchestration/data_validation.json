@@ -1,0 +1,93 @@
+{
+    "generated_at": "2026-11-04T18:48:50.386016+00:00",
+    "ok": true,
+    "classification": {
+        "root": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/classification_split",
+        "splits": {
+            "Train": {
+                "path": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/classification_split/Train",
+                "classes": {
+                    "Glioma": 1112,
+                    "Meningioma": 1112,
+                    "No Tumor": 1112,
+                    "Pituitary": 1112
+                },
+                "total_images": 4448
+            },
+            "Validation": {
+                "path": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/classification_split/Validation",
+                "classes": {
+                    "Glioma": 193,
+                    "Meningioma": 238,
+                    "No Tumor": 122,
+                    "Pituitary": 234
+                },
+                "total_images": 787
+            },
+            "Test": {
+                "path": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/classification_split/Test",
+                "classes": {
+                    "Glioma": 194,
+                    "Meningioma": 239,
+                    "No Tumor": 121,
+                    "Pituitary": 234
+                },
+                "total_images": 788
+            }
+        },
+        "errors": [],
+        "warnings": [],
+        "images_checked": 24
+    },
+    "detection": {
+        "data_yaml": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/detection/data.yaml",
+        "splits": {
+            "train": {
+                "images_dir": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/detection/train/images",
+                "labels_dir": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/detection/train/labels",
+                "images": 4737,
+                "labels": 4737,
+                "boxes": 5317,
+                "empty_labels": 0,
+                "per_class": {
+                    "Glioma": 1349,
+                    "Meningioma": 1482,
+                    "No Tumor": 711,
+                    "Pituitary": 1775
+                }
+            },
+            "valid": {
+                "images_dir": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/detection/valid/images",
+                "labels_dir": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/detection/valid/labels",
+                "images": 254,
+                "labels": 254,
+                "boxes": 276,
+                "empty_labels": 0,
+                "per_class": {
+                    "Glioma": 74,
+                    "Meningioma": 72,
+                    "No Tumor": 49,
+                    "Pituitary": 81
+                }
+            },
+            "test": {
+                "images_dir": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/detection/test/images",
+                "labels_dir": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/detection/test/labels",
+                "images": 255,
+                "labels": 255,
+                "boxes": 278,
+                "empty_labels": 0,
+                "per_class": {
+                    "Glioma": 79,
+                    "Meningioma": 70,
+                    "No Tumor": 49,
+                    "Pituitary": 80
+                }
+            }
+        },
+        "errors": [],
+        "warnings": [],
+        "images_checked": 6,
+        "path": "/home/alaric/Desktop/studies/projects/DL/brain-tumor-classification-deep-learning/data/detection"
+    }
+}
