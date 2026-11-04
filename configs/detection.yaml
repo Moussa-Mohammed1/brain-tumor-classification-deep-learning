@@ -54,3 +54,10 @@ evaluation:
   save_predictions: 8
   predict_conf: 0.25
   save_samples: 8
+
+mlflow:
+  enabled: true
+  tracking_uri: "mlruns"        # overridden by MLFLOW_TRACKING_URI
+  experiment_name: "brainscan-detection"
+  registered_model_name: "brainscan-detection"
+  log_models: true

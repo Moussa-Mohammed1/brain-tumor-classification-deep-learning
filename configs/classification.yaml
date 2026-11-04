@@ -23,3 +23,10 @@ finetuning:
   phase1_reduce_lr_patience: 2
   early_stopping_patience: 3
   reduce_lr_patience: 2
+
+mlflow:
+  enabled: true
+  tracking_uri: "mlruns"        # overridden by MLFLOW_TRACKING_URI
+  experiment_name: "brainscan-classification"
+  registered_model_name: "brainscan-classification"
+  log_models: true
