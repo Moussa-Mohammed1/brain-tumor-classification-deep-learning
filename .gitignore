@@ -227,3 +227,7 @@ models/**/*.weights
 
 # MLflow local tracking store
 mlruns/
+
+# Airflow local home and pipeline artifact archives
+.airflow/
+artifacts/
