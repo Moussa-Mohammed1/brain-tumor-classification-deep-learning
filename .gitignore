@@ -225,6 +225,8 @@ models/**/*.keras
 models/**/*.h5
 models/**/*.weights
 
+backup/*
+
 # MLflow local tracking store
 mlruns/
 
