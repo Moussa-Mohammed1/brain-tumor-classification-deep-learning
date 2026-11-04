@@ -16,6 +16,8 @@ import cv2
 import yaml
 from ultralytics import YOLO
 
+from src.tracking.mlflow_utils import MLflowTracker, utc_timestamp
+
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 CONFIG_PATH = ROOT_DIR / "configs" / "detection.yaml"
@@ -182,6 +184,20 @@ def save_predictions(model, eval_config: dict, run_name: str):
     return project / run_name
 
 
+def split_metrics(metrics: dict) -> dict:
+    """Flatten a split's metrics into ``<split>/<metric>`` friendly keys."""
+    flat = {
+        key: value for key, value in metrics.get("overall", {}).items()
+    }
+    for class_name, values in metrics.get("per_class", {}).items():
+        key = class_name.replace(" ", "_")
+        for metric_name, value in values.items():
+            flat[f"per_class/{key}/{metric_name}"] = value
+    for key, value in metrics.get("speed_ms", {}).items():
+        flat[f"speed_ms/{key}"] = value
+    return flat
+
+
 def main():
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -202,6 +218,14 @@ def main():
     eval_config = config.get("evaluation", {})
     splits = eval_config.get("splits", ["val", "test"])
     run_name = config.get("training", {}).get("name", "yolov8n_brain_tumor")
+    class_names = config.get("data", {}).get("classes", [])
+    mlflow_config = config.get("mlflow", {})
+
+    training_config_path = MODEL_DIR / "training_config.yaml"
+    training_config = {}
+    if training_config_path.exists():
+        with open(training_config_path, "r", encoding="utf-8") as file:
+            training_config = yaml.safe_load(file) or {}
 
     model = YOLO(str(weights_path))
 
@@ -232,15 +256,76 @@ def main():
     with open(metrics_path, "w", encoding="utf-8") as file:
         json.dump(all_metrics, file, indent=4)
 
-    class_names = config.get("data", {}).get("classes", [])
     sample_dir = save_ground_truth_samples(class_names, eval_config)
     prediction_dir = save_predictions(model, eval_config, run_name)
 
-    print(f"\nMetrics saved to: {metrics_path}")
-    if sample_dir is not None:
-        print(f"Ground-truth samples saved to: {sample_dir}")
-    if prediction_dir is not None:
-        print(f"Prediction images saved to: {prediction_dir}")
+    with MLflowTracker(
+        mlflow_config,
+        default_experiment="brainscan-detection",
+        run_name=f"detection-eval-{utc_timestamp()}",
+        tags={"stage": "evaluation", "task": "detection"},
+    ) as tracker:
+        tracker.log_params(
+            {
+                "model_path": str(weights_path),
+                "data_yaml": str(DATA_YAML),
+                "splits": splits,
+                "evaluation": eval_config,
+                "classes": class_names,
+                "training": training_config.get("training", {}),
+                "model": training_config.get("model", ""),
+            }
+        )
+        tracker.set_tags(
+            {
+                "model_path": str(weights_path),
+                "classes": ",".join(str(name) for name in class_names),
+            }
+        )
+
+        for split, metrics in all_metrics.items():
+            tracker.log_metrics(
+                split_metrics(metrics),
+                prefix=f"{split}/",
+            )
+
+        run_artifacts = [metrics_path, training_config_path]
+        if sample_dir is not None:
+            run_artifacts.append(sample_dir)
+        if prediction_dir is not None:
+            run_artifacts.append(prediction_dir)
+        for split in splits:
+            split_run_dir = REPORT_DIR / "runs" / f"{run_name}_{split}"
+            if split_run_dir.exists():
+                run_artifacts.append(split_run_dir)
+
+        tracker.log_artifacts(run_artifacts, artifact_path="evaluation")
+        tracker.log_dict(
+            all_metrics,
+            "evaluation_metrics.json",
+            artifact_path="evaluation",
+        )
+        tracker.log_dict(
+            {
+                "model_path": str(weights_path),
+                "data_yaml": str(DATA_YAML),
+                "classes": class_names,
+                "splits": splits,
+                "evaluation": eval_config,
+                "training_config": training_config,
+                "metrics": all_metrics,
+            },
+            "model_card.json",
+            artifact_path="model",
+        )
+
+        print(f"\nMetrics saved to: {metrics_path}")
+        if sample_dir is not None:
+            print(f"Ground-truth samples saved to: {sample_dir}")
+        if prediction_dir is not None:
+            print(f"Prediction images saved to: {prediction_dir}")
+        if tracker.run_id:
+            print(f"MLflow run id: {tracker.run_id}")
 
 
 if __name__ == "__main__":
