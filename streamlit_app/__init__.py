@@ -1,0 +1,1 @@
+"""BrainScan Streamlit application package."""
