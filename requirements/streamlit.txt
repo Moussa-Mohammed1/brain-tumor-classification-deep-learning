@@ -1,0 +1,21 @@
+# Streamlit interface - Python 3.10.22
+#
+# Install with:
+#
+#   pip install -r requirements/streamlit.txt
+#
+# The UI only needs HTTP access to the FastAPI service; TensorFlow,
+# Ultralytics and the trained models stay in the API container/environment.
+#
+# Streamlit 1.65 requires pyarrow<26 and pillow<13; the pins below are the
+# newest versions that still support Python 3.10.
+streamlit==1.65.0
+requests==2.34.2
+pillow==12.3.0
+
+# Transitive pins kept explicit so the UI environment is reproducible.
+altair==6.2.2
+pyarrow==25.0.1
+pydeck==0.9.3
+toml==0.10.2
+watchdog==6.0.0
